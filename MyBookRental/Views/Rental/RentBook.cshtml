@@ -1,0 +1,68 @@
+﻿@model MyBookRental.ViewModels.RentalFormViewModel
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/toastr.js"></script>
+
+<h2>Rentals</h2>
+
+@using (Ajax.BeginForm("RentBook", "Rental", new AjaxOptions
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "divrentals",
+    OnSuccess = "NewRentalSuccessful",
+    OnFailure = "NewRentalFailed"
+}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rental.BookId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Rental.BookId, new SelectList(Model.Books, "Id", "Title"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Rental.BookId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rental.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Rental.CustomerId, new SelectList(Model.Customers, "Id", "FullName"), "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Rental.CustomerId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default js-button" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Ajax.ActionLink("View Rentals", "ViewRentals", new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "divrentals"
+})
+</div>
+
+<div id="divrentals">
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script src="~/Scripts/rental.js"></script>
+    
+}

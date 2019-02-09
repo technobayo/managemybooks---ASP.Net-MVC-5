@@ -1,0 +1,27 @@
+﻿@model IEnumerable<MyBookRental.Models.Book>
+
+@{
+    ViewBag.Title = "Index_Customer";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<hr />
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-2 col-sm-4">
+            <div>
+
+                <a href="@Url.Action("ViewBookDetails", new { id = item.Id})">
+                    <img src="@Url.Content(item.ImageReference)" class="img-thumbnail" />
+                    <p>@Html.ActionLink(item.Title, "ViewBookDetails", new { id = item.Id })</p>
+                    <p>@item.Genre.Name</p>
+                    <p>@item.Author</p>
+                </a>
+
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,75 @@
+﻿@model MyBookRental.Models.Book
+
+
+@{
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-3">
+        <img src="@Url.Content(Model.ImageReference)" />
+    </div>
+    <div class="col-md-6">
+        
+        <dl class="dl-horizontal">
+
+            <dd class="h1">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dd>
+                <hr />
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Author)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Author)
+            </dd>
+
+            <dd>
+                <br />
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Summary)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Summary)
+            </dd>
+
+            <dd>
+                <br />
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Genre.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Genre.Name)
+            </dd>
+
+            <dd>
+                <br />
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Availability)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Availability)
+            </dd>
+
+            <dd>
+                <br />
+            </dd>
+
+        </dl>
+    </div>
+</div>

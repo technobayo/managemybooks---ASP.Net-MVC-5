@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MyBookRental.Models.Book>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+<h2>List of Books</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddNewBook")
+</p>
+<table class="table js-table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Summary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberInStock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberInStock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre.Name)
+            </td>
+            <td class="js-cell" cellid="@item.Id">
+                @Html.ActionLink("Edit", "EditBook", new { id = item.Id }) |
+                @Html.ActionLink("Details", "ViewBookDetails_Admin", new { id = item.Id }) |
+                @*@Html.ActionLink("Delete", "DeleteBook", new { id=item.Id })*@
+
+                @Ajax.ActionLink("Delete","RemoveBook",new {id = item.Id },new AjaxOptions {
+               HttpMethod = "DELETE",
+               OnSuccess = "OnSuccess"
+
+           })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script>
+
+    function OnSuccess() {
+        location.reload();
+    }
+
+
+</script>

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MyBookRental.Models.Rental>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Book.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateBorrowed)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Book.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateBorrowed)
+        </td>
+        <td>
+            @Ajax.ActionLink("Return Book", "ReturnBook", new { id = item.Id }, new AjaxOptions
+       {
+           HttpMethod = "DELETE",
+           InsertionMode = InsertionMode.Replace,
+           UpdateTargetId = "divrentals",
+           OnSuccess = "ReturnRentalSuccess",
+           OnFailure = "ReturnRentalFailed"
+       })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<script src="~/Scripts/rental.js"></script>
