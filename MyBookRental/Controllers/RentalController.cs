@@ -77,9 +77,6 @@ namespace MyBookRental.Controllers
 
                 return PartialView("_Rental", updatedRentals);
             }
-
-
-
         }
 
         [HttpDelete]

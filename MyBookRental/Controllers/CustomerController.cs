@@ -23,11 +23,15 @@ namespace MyBookRental.Controllers
             dbContext.Dispose();
         }
 
-        // GET: Customer
         public ActionResult Index()
         {
             var customers = dbContext.Customers.ToList();
             return View(customers);
+        }
+
+        public ActionResult IndexFromApi()
+        {
+            return View();
         }
 
         public ActionResult AddNewCustomer()

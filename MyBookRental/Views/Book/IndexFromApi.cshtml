@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "IndexFromApi";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<hr />
+
+<div class="row">
+    <div id="books">
+        
+    </div>
+</div>
+
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination"></ul>
+</nav>
+
+@section Scripts
+{
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/book.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $.ajax({
+                method: "GET",
+                dataType: "json",
+                url: "/api/book",
+                success: function (data) {
+
+                    var row = "";
+
+                    $.each(data, function (index, book) {
+                        row += "<div class='col-md-2 col-sm-4'><a href='/Book/ViewBookDetails/" +
+                            book.Id + "'><img class='img-thumbnail' src='" + book.ImageReference + "'/>" +
+                            "<p>" + book.Title + "</p></a>" +
+                            "<p>" + book.Author + "</p>" +
+                            "<p>"+book.Genre.Name+"</p>"+
+                            "</div>";
+                    });
+
+                    $("#books").html(row);
+                },
+                error: function (result) {
+                    alert("Error");
+                }
+            });
+        });
+
+    </script>
+}
+

@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "IndexFromApi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Customers From Api</h2>
+
+<p>
+    @Html.ActionLink("Add Customer", "AddNewCustomer", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table jsTable">
+    <tr>
+        <th>
+           FirstName
+        </th>
+        <th>
+            LastName
+        </th>
+        <th>
+            Phone
+        </th>
+        <th>
+            Email
+        </th>
+        <th></th>
+    </tr>
+    <tbody id="tableBody">
+
+    </tbody>
+    </table>
+
+
+    @section Scripts {
+
+        <script src="~/Scripts/jquery-3.3.1.js"></script>
+        <script>
+            $(document).ready(function () {
+                
+                    $.ajax({
+                        method: "GET",
+                        url: "/api/Customer",
+                        dataType: "json",
+                        success: function (data) {  //on success, call anonymous function with result - data
+                            var row = "";
+                            //iterate through the returned data and return in an anonymous function
+                            $.each(data, function (index, customer) {
+                                //generate the row and cells
+                                row += "<tr><td>" + customer.FirstName +
+                                    "</td><td>" + customer.LastName +
+                                    "</td><td>" + customer.Phone +
+                                    "</td><td>" + customer.Email +
+                                    "</td><td><a href='/Customer/EditCustomer/" + customer.Id + "'>Edit</a> | "+ 
+                                    "<a href='/Customer/ViewCustomerDetails/" + customer.Id + "'>Details</a> | "+
+                                    "<a href='/Customer/DeleteCustomer/" + customer.Id + "'>Delete</a>" +
+                                    "</td></tr>";                         
+                            });
+                            $("#tableBody").html(row);
+                        },
+                        error: function (result) {
+                            alert("Error");
+                        }
+                    });
+                
+            });
+
+        </script>
+
+    }

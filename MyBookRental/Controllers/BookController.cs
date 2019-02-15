@@ -30,6 +30,11 @@ namespace MyBookRental.Controllers
             return View(books);
         }
 
+        public ActionResult IndexFromApi()
+        {
+            return View();
+        }
+
         public ActionResult Index_Admin()
         {
             var books = dbContext.Books.Include(b => b.Genre).ToList();

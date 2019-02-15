@@ -11,17 +11,29 @@
 
     @foreach (var item in Model)
     {
-        <div class="col-md-2 col-sm-4">
-            <div>
-
+        <div class="col-md-2 col-sm-4" id="books">
+            <div class="book">
                 <a href="@Url.Action("ViewBookDetails", new { id = item.Id})">
                     <img src="@Url.Content(item.ImageReference)" class="img-thumbnail" />
                     <p>@Html.ActionLink(item.Title, "ViewBookDetails", new { id = item.Id })</p>
                     <p>@item.Genre.Name</p>
                     <p>@item.Author</p>
                 </a>
-
             </div>
         </div>
     }
+
+    
 </div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination"></ul>
+</nav>
+
+@section Scripts
+{
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/book.js"></script>
+
+}
